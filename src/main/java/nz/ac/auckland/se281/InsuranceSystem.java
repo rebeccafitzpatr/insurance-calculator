@@ -28,8 +28,9 @@ public class InsuranceSystem {
 
       String[] entries= profile.split(";");
 
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", ".", " ");
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage("%s: %s, %s", "1", entries[0], entries[1]);
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", ":", " ");
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage("1", entries[0], entries[1]);
+      MessageCli.PROFILE_CREATED.printMessage(entries[0],entries[1]);
       
     }
   }//System.out.println(String userName);
