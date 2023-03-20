@@ -46,6 +46,8 @@ public class InsuranceSystem {
 
       String[] entries= profile.split(";");
 
+      
+
       //now print profile information
       //change the message slightly depending on how many profiles there are
      
@@ -67,18 +69,57 @@ public class InsuranceSystem {
     //* *//
 
     //check that the userName meets the check conditions:
+    //* must be unique, must be at least 3 chars long, must be only a single word, process using title case */
+    //age should be a positive integer
 
-
-
-    //make an array list to store the profile information
-    //store each profiles information as a string separated by a; semicolon
+    //first tidy the User's name so that it has title case.
+    String tidyUserName = userName.toLowerCase();
     
-    String profileEntry = userName + ";" + age;
+    char firstLetter = tidyUserName.charAt(0);
+    String firstLetterString = Character.toString(firstLetter);
+    String firstLetterStringCapital = firstLetterString.toUpperCase();
+    tidyUserName = tidyUserName.replaceFirst(firstLetterString, firstLetterStringCapital );
     
-    profiles.add(profileEntry);
+
+   // check if the username is long enough
+    if (userName.length() < 3){
+      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
+      return;
+
+    // check there is no duplicate of user names
+    }else if(profiles != null){
+
+      for (String profile:profiles){
+        String[] entries= profile.split(";");
+        
+        //check that the user name is unique
+      
+        if (tidyUserName == entries[0]){
+          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
+
+          return;
+        
+        }
+      }
+
+      
+
+    }
+      
+      //make an array list to store the profile information
+      //store each profiles information as a string separated by a; semicolon
+      
+      String profileEntry = tidyUserName + ";" + age;
+      
+      profiles.add(profileEntry);
+
+      MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
+      
+      //userNameArray[0] = (userNameArray[0]).toUpperCase()
 
     
-    MessageCli.PROFILE_CREATED.printMessage(userName,age);
+
+    
     //* */
 
   }
