@@ -23,13 +23,32 @@ public class InsuranceSystem {
     if (profiles.size() == 0){
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
     }
+    
+
+    //find the number of profiles in the database and convert this to a string
+    int dbLength = profiles.size();
+    String dbLength_string = Integer.toString(dbLength);
+
 
     for (String profile :profiles) {
 
+      //find the index of the particular profile
+      int index = profiles.indexOf(profile) + 1;
+      String index_String = Integer.toString(index);
+
       String[] entries= profile.split(";");
 
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", ":", " ");
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage("1", entries[0], entries[1]);
+      //now print profile information
+      //change the message slightly depending on how many profiles there are
+      if (dbLength ==1) {
+        MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
+      }
+
+      if (dbLength >1){
+        MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
+      }
+      //MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, entries[0], entries[1]);
       MessageCli.PROFILE_CREATED.printMessage(entries[0],entries[1]);
       
     }
@@ -44,19 +63,17 @@ public class InsuranceSystem {
 
     
     //* *//
+
+    //check that the userName meets the check conditions:
+
+
+
     //make an array list to store the profile information
     //store each profiles information as a string separated by a; semicolon
-    //ArrayList<String> profiles = new ArrayList<String>();
+    
     String profileEntry = userName + ";" + age;
-
-    //String profile = "profile";
-
-    //System.out.println(profileEntry);
-
     
     profiles.add(profileEntry);
-
-    //System.out.println(profiles);
 
     //* */
 
