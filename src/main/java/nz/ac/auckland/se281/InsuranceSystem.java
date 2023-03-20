@@ -30,6 +30,14 @@ public class InsuranceSystem {
     String dbLength_string = Integer.toString(dbLength);
 
 
+    if (dbLength ==1) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
+    }
+
+    if (dbLength >1){
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
+    }
+
     for (String profile :profiles) {
 
       //find the index of the particular profile
@@ -40,16 +48,10 @@ public class InsuranceSystem {
 
       //now print profile information
       //change the message slightly depending on how many profiles there are
-      if (dbLength ==1) {
-        MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
-      }
-
-      if (dbLength >1){
-        MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
-      }
+     
       //MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
       MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, entries[0], entries[1]);
-      MessageCli.PROFILE_CREATED.printMessage(entries[0],entries[1]);
+      //MessageCli.PROFILE_CREATED.printMessage(entries[0],entries[1]);
       
     }
   }//System.out.println(String userName);
@@ -75,6 +77,8 @@ public class InsuranceSystem {
     
     profiles.add(profileEntry);
 
+    
+    MessageCli.PROFILE_CREATED.printMessage(userName,age);
     //* */
 
   }
