@@ -5,6 +5,8 @@ import nz.ac.auckland.se281.Main.PolicyType;
 
 import java.util.ArrayList;
 
+//import org.yaml.snakeyaml.events.AliasEvent;
+
 public class InsuranceSystem {  
 
   ArrayList<String> profiles = new ArrayList<String>();
@@ -87,14 +89,16 @@ public class InsuranceSystem {
       return;
 
     // check there is no duplicate of user names
-    }else if(profiles != null){
+    }else if(profiles.isEmpty() == false){
 
       for (String profile:profiles){
         String[] entries= profile.split(";");
         
         //check that the user name is unique
       
-        if (tidyUserName == entries[0]){
+        
+        if (tidyUserName.equals(entries[0]) ){
+          System.out.println(entries[0]);
           MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
 
           return;
