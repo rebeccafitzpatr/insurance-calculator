@@ -85,7 +85,7 @@ public class InsuranceSystem {
 
    // check if the username is long enough
     if (userName.length() < 3){
-      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
+      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(tidyUserName);
       return;
 
     // check there is no duplicate of user names
@@ -99,16 +99,25 @@ public class InsuranceSystem {
         
         if (tidyUserName.equals(entries[0]) ){
           System.out.println(entries[0]);
-          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
+          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(tidyUserName);
 
           return;
         
         }
       }
-
-      
-
     }
+
+
+    //check that the age input is a positive number
+
+    int ageInteger = Integer.valueOf(age);
+
+    if (ageInteger <0){
+      MessageCli.INVALID_AGE.printMessage(age, tidyUserName);
+      return;
+    }
+
+
       
       //make an array list to store the profile information
       //store each profiles information as a string separated by a; semicolon
