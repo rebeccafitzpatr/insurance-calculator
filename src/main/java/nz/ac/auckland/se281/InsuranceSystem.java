@@ -1,11 +1,8 @@
 package nz.ac.auckland.se281;
 
-
 import nz.ac.auckland.se281.Main.PolicyType;
-
 import java.util.ArrayList;
 
-//import org.yaml.snakeyaml.events.AliasEvent;
 
 public class InsuranceSystem {  
 
@@ -22,7 +19,7 @@ public class InsuranceSystem {
 
     //System.out.println("Database has 0 profiles.");
     
-    if (profiles.size() == 0){
+    if (profiles.size() == 0) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
     }
     
@@ -32,33 +29,33 @@ public class InsuranceSystem {
     String dbLength_string = Integer.toString(dbLength);
 
 
-    if (dbLength ==1) {
+    if (dbLength == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
     }
 
-    if (dbLength >1){
+    if (dbLength > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
     }
 
-    for (String profile :profiles) {
+    for (String profile : profiles) {
 
       //find the index of the particular profile
       int index = profiles.indexOf(profile) + 1;
       String index_String = Integer.toString(index);
 
-      String[] entries= profile.split(";");
+      String[] entries = profile.split(";");
 
       
 
       //now print profile information
-      //change the message slightly depending on how many profiles there are
+      
      
-      //MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
+      
       MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, entries[0], entries[1]);
-      //MessageCli.PROFILE_CREATED.printMessage(entries[0],entries[1]);
+      
       
     }
-  }//System.out.println(String userName);
+  }
 
 
 
@@ -84,20 +81,20 @@ public class InsuranceSystem {
     
 
    // check if the username is long enough
-    if (userName.length() < 3){
+    if (userName.length() < 3) {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(tidyUserName);
       return;
 
     // check there is no duplicate of user names
     }else if(profiles.isEmpty() == false){
 
-      for (String profile:profiles){
+      for (String profile:profiles) {
         String[] entries= profile.split(";");
         
         //check that the user name is unique
       
         
-        if (tidyUserName.equals(entries[0]) ){
+        if (tidyUserName.equals(entries[0])) {
           System.out.println(entries[0]);
           MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(tidyUserName);
 
@@ -112,23 +109,23 @@ public class InsuranceSystem {
 
     int ageInteger = Integer.valueOf(age);
 
-    if (ageInteger <0){
+    if (ageInteger < 0){
       MessageCli.INVALID_AGE.printMessage(age, tidyUserName);
       return;
     }
 
 
       
-      //make an array list to store the profile information
-      //store each profiles information as a string separated by a; semicolon
-      
-      String profileEntry = tidyUserName + ";" + age;
-      
-      profiles.add(profileEntry);
+    //make an array list to store the profile information
+    //store each profiles information as a string separated by a; semicolon
+    
+    String profileEntry = tidyUserName + ";" + age;
+    
+    profiles.add(profileEntry);
 
-      MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
-      
-      //userNameArray[0] = (userNameArray[0]).toUpperCase()
+    MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
+    
+    //userNameArray[0] = (userNameArray[0]).toUpperCase()
 
     
 
