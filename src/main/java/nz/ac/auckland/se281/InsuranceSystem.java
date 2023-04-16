@@ -10,7 +10,6 @@ public class InsuranceSystem {
 
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
-
   //ArrayList<String> profiles = new ArrayList<String>();
   }
 
@@ -39,22 +38,34 @@ public class InsuranceSystem {
       //now print profile information message    
       String userName = profile.getUsername();
       String age = profile.getAge();
+      boolean profileLoaded = profile.getProfileLoadStatus();
 
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
+      if (profileLoaded == true){
+        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage("*** ", index_String, userName, age);
+      }else {
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
+
+      }
 
     }
 
   }
 
 
-  public boolean checkName (String userName){
+  public boolean checkNameLength (String userName){
     // this method will check that the given username is longer than 3 characters, unique
 
-    //first check that the username is longer than 3 characters
+    //first check that the username is not shorter than 3 characters
     if (userName.length() < 3) {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
       return false;
     }
+
+    // then return true
+    return true;   
+  }
+
+  public boolean checkNameUnique (String userName){
 
     //next check that the username is unique
     if (profiles.size() > 0){
@@ -65,7 +76,7 @@ public class InsuranceSystem {
         }
       }
     }
-    // if the user name meets both criteria, return true.
+    // if the user name is unique, return true.
     return true;
   
   }
@@ -110,7 +121,7 @@ public class InsuranceSystem {
     //age should be a positive integer
 
     //if username meets these requirements, then create the new profile and add to the database.
-    if ((checkName(userName) == true) && (checkAge(age, userName) == true)){
+    if ((checkNameLength(userName) == true) && (checkAge(age, userName) && (checkNameUnique(userName)) == true)){
       Profile username = new Profile(userName, age);
 
       profiles.add(username);
@@ -123,6 +134,26 @@ public class InsuranceSystem {
 
   public void loadProfile(String userName) {
     // TODO: Complete this method.
+
+    userName = tidyTitlecase(userName);
+
+    //check that a profile with that username is in the database
+
+      if (checkNameUnique(userName) == false ){
+
+        //then find the profile and load it, then return the success message
+        for (Profile profile : profiles){
+          if (profile.getUsername().equals(userName)){
+            profile.setProfileLoad();
+            MessageCli.PROFILE_LOADED.printMessage(userName);
+          }
+        }
+
+        //otherwise print, profile not loaded.
+      } else {
+        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+
+      }
   }
 
   public void unloadProfile() {
