@@ -15,28 +15,18 @@ public class InsuranceSystem {
   }
 
   public void printDatabase() {
-
-    
-    // TODO: Complete this method.
-
-    //System.out.println("Database has 0 profiles.");
-
      
-    if (profiles.size() == 0) {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
-    }
-    
-
     //find the number of profiles in the database and convert this to a string
     int dbLength = profiles.size();
     String dbLength_string = Integer.toString(dbLength);
 
+    if (dbLength == 0) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
 
-    if (dbLength == 1) {
+    } else if(dbLength == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
-    }
 
-    if (dbLength > 1) {
+    } else if (dbLength > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
     }
 
@@ -46,17 +36,10 @@ public class InsuranceSystem {
       int index = profiles.indexOf(profile) + 1;
       String index_String = Integer.toString(index);
 
-      //String[] entries = profile.split(";");
-
+      //now print profile information message    
       String userName = profile.getUsername();
       String age = profile.getAge();
-    
-     
 
-      //now print profile information
-      
-     
-      
       MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
 /*       
       
@@ -76,103 +59,79 @@ public class InsuranceSystem {
     return "";
   }  
 
-  public void checkName (String username){
-    // this method will check that the given username is longer than 3 characters, unique and in title case
-  }
+  public boolean checkName (String userName){
+    // this method will check that the given username is longer than 3 characters, unique
 
-  public void checkAge (String age){
-    //this method will check that the age is an positve integer.
-  }
+    //first check that the username is longer than 3 characters
+    if (userName.length() < 3) {
+      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
+      return false;
+    }
 
-
+    //next check that the username is unique
+    if (profiles.size() > 0){
+      for (Profile profile : profiles) {
+        if (profile.getUsername() == userName) {
+          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
+          return false;
+        }
+      }
+    }
+    // if the user name meets both criteria, return true.
+    return true;
+    
   
+  }
 
-  public void createNewProfile(String userName, String age) {
-    // TODO: Complete this method.
+  public boolean checkAge (String age, String userName){
+    //this method will check that the age is an positve integer.if it is valid, it will return true.
 
-    
-    //* *//
+    int ageInteger = Integer.valueOf(age);
 
-     
+    if (ageInteger < 0){
+      MessageCli.INVALID_AGE.printMessage(age, userName);
+      return false;
 
-    //check that the userName meets the check conditions:
-    //must be unique, must be at least 3 chars long, must be only a single word, process using title case
-    //age should be a positive integer
+    }
 
-    //first tidy the User's name so that it has title case.
+    return true;
+  }
 
-    
+  public String tidyTitlecase (String userName){
+    // this method will convert the input name to titlecase and return this
     String tidyUserName = userName.toLowerCase();
     char firstLetter = tidyUserName.charAt(0);
     String firstLetterString = Character.toString(firstLetter);
     String firstLetterStringCapital = firstLetterString.toUpperCase();
     tidyUserName = tidyUserName.replaceFirst(firstLetterString, firstLetterStringCapital );
     
- 
-   // check if the username is long enough
-    if (userName.length() < 3) {
-      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(tidyUserName);
-      return;
+    return tidyUserName; 
+  }
 
 
-    // check there is no duplicate of user names
+  
+
+  public void createNewProfile(String userName, String age) {
+
+    //convert username to title case
+    userName = tidyTitlecase(userName);
+     
+
+    //check that the userName meets the check conditions:
+    //must be unique, must be at least 3 chars long, must be only a single word, process using title case
+    //age should be a positive integer
+
+    //if username meets these requirements, then create the new profile and add to the database.
+    if ((checkName(userName) == true) && (checkAge(age, userName) == true)){
+      Profile username = new Profile(userName, age);
+
+      profiles.add(username);
+      
+      MessageCli.PROFILE_CREATED.printMessage(userName,age);
+
     }
     
-    //else if(profiles.isEmpty() == false){
-
-      //for (String profile:profiles) {
-        //String[] entries= profile.split(";");
-        
-        //check that the user name is unique
-      
-      
-        //if (tidyUserName.equals(entries[0])) {
-          //System.out.println(entries[0]);
-          //MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(tidyUserName);
-
-          //return;
-        
-        //}
-
-      //}
-    //}
-
-
-    //check that the age input is a positive number
-
-    int ageInteger = Integer.valueOf(age);
-
-    if (ageInteger < 0){
-      MessageCli.INVALID_AGE.printMessage(age, tidyUserName);
-      return;
-
     }
-
-    Profile username = new Profile(tidyUserName, age);
-
-    profiles.add(username);
-    
-    MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
-    }
-
-
-      
-    //make an array list to store the profile information
-    //store each profiles information as a string separated by a; semicolon
-    
-    //String profileEntry = tidyUserName + ";" + age;
-    
-   // profiles.add(profileEntry);
-
-    //
-    
-    //userNameArray[0] = (userNameArray[0]).toUpperCase()
-
-
-    
-    //* */
-
-  //}
 
   public void loadProfile(String userName) {
     // TODO: Complete this method.
