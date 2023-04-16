@@ -41,23 +41,11 @@ public class InsuranceSystem {
       String age = profile.getAge();
 
       MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
-/*       
-      
-    }*/
-  }
 
-}
-  public String getLength (Profile database){
-      // this method will find the number of profiles in the database
-
-      return "";
     }
 
-  public String getIndex (Profile database){
-    // this method will return the rank of each profile in the data base
-  
-    return "";
-  }  
+  }
+
 
   public boolean checkName (String userName){
     // this method will check that the given username is longer than 3 characters, unique
@@ -71,7 +59,7 @@ public class InsuranceSystem {
     //next check that the username is unique
     if (profiles.size() > 0){
       for (Profile profile : profiles) {
-        if (profile.getUsername() == userName) {
+        if (profile.getUsername().equals(userName)) {
           MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
           return false;
         }
@@ -79,9 +67,9 @@ public class InsuranceSystem {
     }
     // if the user name meets both criteria, return true.
     return true;
-    
   
   }
+
 
   public boolean checkAge (String age, String userName){
     //this method will check that the age is an positve integer.if it is valid, it will return true.
