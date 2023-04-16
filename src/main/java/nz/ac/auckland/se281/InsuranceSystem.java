@@ -64,7 +64,25 @@ public class InsuranceSystem {
   }
 
 }
+  public String getLength (Profile database){
+      // this method will find the number of profiles in the database
 
+      return "";
+    }
+
+  public String getIndex (Profile database){
+    // this method will return the rank of each profile in the data base
+  
+    return "";
+  }  
+
+  public void checkName (String username){
+    // this method will check that the given username is longer than 3 characters, unique and in title case
+  }
+
+  public void checkAge (String age){
+    //this method will check that the age is an positve integer.
+  }
 
 
   
