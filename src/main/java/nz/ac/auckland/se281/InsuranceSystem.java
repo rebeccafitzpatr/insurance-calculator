@@ -3,6 +3,8 @@ package nz.ac.auckland.se281;
 import nz.ac.auckland.se281.Main.PolicyType;
 import java.util.ArrayList;
 
+import org.eclipse.jgit.transport.UserAgent;
+
 
 public class InsuranceSystem {  
 
@@ -114,6 +116,15 @@ public class InsuranceSystem {
 
     //convert username to title case
     userName = tidyTitlecase(userName);
+
+    //then check that no profile is loaded currently
+
+    for (Profile profile : profiles){
+      if (profile.getProfileLoadStatus() == true){
+        MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(profile.getUsername());
+        return;
+      }
+    }
      
 
     //check that the userName meets the check conditions:
@@ -137,12 +148,18 @@ public class InsuranceSystem {
 
     userName = tidyTitlecase(userName);
 
+
     //check that a profile with that username is in the database
 
       if (checkNameUnique(userName) == false ){
 
         //then find the profile and load it, then return the success message
         for (Profile profile : profiles){
+
+          // first unload any currently loaded profiles
+
+          profile.setProfileUnload();
+
           if (profile.getUsername().equals(userName)){
             profile.setProfileLoad();
             MessageCli.PROFILE_LOADED.printMessage(userName);
@@ -158,6 +175,17 @@ public class InsuranceSystem {
 
   public void unloadProfile() {
     // TODO: Complete this method.
+
+    for (Profile profile : profiles) {
+      if (profile.getProfileLoadStatus() == true){
+        profile.setProfileUnload();
+        MessageCli.PROFILE_UNLOADED.printMessage(profile.getUsername());
+        return;
+      }
+    }
+
+    MessageCli.NO_PROFILE_LOADED.printMessage();
+    return;
   }
 
   public void deleteProfile(String userName) {
