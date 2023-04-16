@@ -2,9 +2,9 @@ package nz.ac.auckland.se281;
 
 public class Profile{
     private String username;
-    private int age;
+    private String age;
 
-    public Profile(String username, int age){
+    public Profile(String username, String age){
 
         this.username = username;
         this.age = age;
@@ -16,7 +16,7 @@ public class Profile{
 
     }
 
-    public int getAge(){
+    public String getAge(){
         return this.age;
     }
     

@@ -39,26 +39,31 @@ public class InsuranceSystem {
     if (dbLength > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
     }
-/*
-    for (String profile : profiles) {
+
+    for (Profile profile : profiles) {
 
       //find the index of the particular profile
       int index = profiles.indexOf(profile) + 1;
       String index_String = Integer.toString(index);
 
-      String[] entries = profile.split(";");
+      //String[] entries = profile.split(";");
 
-      
+      String userName = profile.getUsername();
+      String age = profile.getAge();
+    
+     
 
       //now print profile information
       
      
       
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, entries[0], entries[1]);
-      
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
+/*       
       
     }*/
   }
+
+}
 
 
 
@@ -93,7 +98,9 @@ public class InsuranceSystem {
 
 
     // check there is no duplicate of user names
-    }else if(profiles.isEmpty() == false){
+    }
+    
+    //else if(profiles.isEmpty() == false){
 
       //for (String profile:profiles) {
         //String[] entries= profile.split(";");
@@ -103,22 +110,31 @@ public class InsuranceSystem {
       
         //if (tidyUserName.equals(entries[0])) {
           //System.out.println(entries[0]);
-          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(tidyUserName);
+          //MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(tidyUserName);
 
-          return;
+          //return;
         
-        }
+        //}
+
       //}
     //}
 
 
     //check that the age input is a positive number
 
-    //int ageInteger = Integer.valueOf(age);
+    int ageInteger = Integer.valueOf(age);
 
-    //if (ageInteger < 0){
-      //MessageCli.INVALID_AGE.printMessage(age, tidyUserName);
+    if (ageInteger < 0){
+      MessageCli.INVALID_AGE.printMessage(age, tidyUserName);
       return;
+
+    }
+
+    Profile username = new Profile(tidyUserName, age);
+
+    profiles.add(username);
+    
+    MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
     }
 
 
@@ -130,7 +146,7 @@ public class InsuranceSystem {
     
    // profiles.add(profileEntry);
 
-    //MessageCli.PROFILE_CREATED.printMessage(tidyUserName,age);
+    //
     
     //userNameArray[0] = (userNameArray[0]).toUpperCase()
 
