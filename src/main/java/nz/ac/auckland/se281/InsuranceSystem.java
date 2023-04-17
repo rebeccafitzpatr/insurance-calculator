@@ -3,8 +3,6 @@ package nz.ac.auckland.se281;
 import nz.ac.auckland.se281.Main.PolicyType;
 import java.util.ArrayList;
 
-import org.eclipse.jgit.transport.UserAgent;
-
 
 public class InsuranceSystem {  
 
@@ -144,34 +142,37 @@ public class InsuranceSystem {
     }
 
   public void loadProfile(String userName) {
-    // TODO: Complete this method.
-
     userName = tidyTitlecase(userName);
 
+        // first unload any currently loaded profiles
 
-    //check that a profile with that username is in the database
-
-      if (checkNameUnique(userName) == false ){
-
-        //then find the profile and load it, then return the success message
         for (Profile profile : profiles){
-
-          // first unload any currently loaded profiles
-
           profile.setProfileUnload();
-
-          if (profile.getUsername().equals(userName)){
-            profile.setProfileLoad();
-            MessageCli.PROFILE_LOADED.printMessage(userName);
-          }
         }
+          //if (checkNameUnique(userName) == false ){              
+
+          //then find the profile and load it, then return the success message
+            for (Profile profile : profiles){     
+              
+            //check that a profile with that username is in the database       
+
+              if (profile.getUsername().equals(userName)){
+                profile.setProfileLoad();
+                MessageCli.PROFILE_LOADED.printMessage(userName);
+                return;
+              }
+
+            }
+        
 
         //otherwise print, profile not loaded.
-      } else {
-        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+          MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
 
-      }
-  }
+        return;
+
+      
+    }
+  
 
   public void unloadProfile() {
     // TODO: Complete this method.
@@ -194,18 +195,10 @@ public class InsuranceSystem {
     //convert the username to title case
     userName = tidyTitlecase(userName);
 
-    //first check that no profile is currently loaded.
-    for (Profile profile : profiles) {
-      //if there is, then send an error message
-      if (profile.getProfileLoadStatus() == true) {
-        MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
-        return;
-      } 
-    }
     // check that the profile to delete is in the database
-    if (checkNameUnique(userName) == false) {
+    //if (checkNameUnique(userName) == false) {
       for (Profile profile : profiles) {
-        if (profile.getUsername() == userName) {
+        if (profile.getUsername().equals(userName)) {
 
           int deletingIndex = profiles.indexOf(profile);
           //check that the profile is not currently loaded, if it is currently loaded, give an error message
@@ -220,9 +213,9 @@ public class InsuranceSystem {
           }
         }
       }
-    } else {
+    // otherwise there is no profile with the username, so give a error message
       MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
-    }
+    
 
 
 
