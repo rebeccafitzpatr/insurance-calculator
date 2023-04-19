@@ -223,5 +223,37 @@ public class InsuranceSystem {
 
   public void createPolicy(PolicyType type, String[] options) {
     // TODO: Complete this method.
+
+    //home policy
+    if (type == PolicyType.HOME) {
+      //check that a profile is loaded
+      for (Profile profile : profiles) {
+        if (profile.getProfileLoadStatus() == true) {
+
+          //if it is create the policy and give success message
+          HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
+          MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
+
+          return;
+
+          
+        }
+      }
+      
+      //if not print error message
+      MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+    }
   }
-}
+
+  public boolean convertToBoolean(String input) {
+    //this method will convert the users string input into a boolean true or false
+    if (input.equals("yes")) {
+      return true;
+
+    }else {
+      return false;
+
+    }
+    }
+  }
+

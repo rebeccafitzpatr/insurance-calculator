@@ -1,10 +1,12 @@
 package nz.ac.auckland.se281;
 
 public class Policy {
-    private int sumInsured;
+    protected int sumInsured;
+    protected Profile profile;
 
-    public Policy(int sumInsured) {
+    public Policy(int sumInsured, Profile profile) {
         this.sumInsured = sumInsured;
+        this.profile = profile;
 
     }
     
