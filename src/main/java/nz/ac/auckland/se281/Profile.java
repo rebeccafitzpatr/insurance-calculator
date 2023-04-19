@@ -4,6 +4,7 @@ public class Profile{
     private String username;
     private String age;
     private boolean profileLoaded;
+    private int numberOfPolicies = 0;
 
     public Profile(String username, String age){
 
@@ -43,5 +44,15 @@ public class Profile{
     public boolean getProfileLoadStatus(){
         return profileLoaded;
     } 
+
+    public void setincreaseNumberOfPolicies(){
+        this.numberOfPolicies = this.numberOfPolicies + 1;
+
+    }
+
+    public int getNumberOfPolicies(){
+        return numberOfPolicies;
+    }
+    
     
 }

@@ -39,15 +39,24 @@ public class InsuranceSystem {
       String userName = profile.getUsername();
       String age = profile.getAge();
       boolean profileLoaded = profile.getProfileLoadStatus();
+      int numberOfPolicies = profile.getNumberOfPolicies();
 
-      if (profileLoaded == true){
-        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage("*** ", index_String, userName, age);
-      }else {
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(index_String, userName, age);
+      if (numberOfPolicies == 1){  
+        if (profileLoaded == true){
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies), "y" );
+        }else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies), "y" );
+        }
+      } else {
+        if (profileLoaded == true){
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
+        }else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
 
       }
 
     }
+  }
 
   }
 
@@ -233,6 +242,7 @@ public class InsuranceSystem {
           //if it is create the policy and give success message
           HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
+          profile.setincreaseNumberOfPolicies();
 
           return;
 

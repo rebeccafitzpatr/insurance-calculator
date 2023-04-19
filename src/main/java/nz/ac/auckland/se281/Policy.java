@@ -9,6 +9,8 @@ public class Policy {
         this.profile = profile;
 
     }
+
+    
     
 
     public void discountTwoPremiums(String userName) {
