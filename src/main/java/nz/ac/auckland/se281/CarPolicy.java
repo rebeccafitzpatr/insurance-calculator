@@ -12,7 +12,7 @@ public class CarPolicy extends Policy {
     }
     
     @Override
-    public void printPolicy() {
+    public void printPolicy(int totalPremium) {
         
 
         MessageCli.PRINT_DB_CAR_POLICY.printMessage(model, String.valueOf(sumInsured), String.valueOf(basePremium), String.valueOf(discountPremium));

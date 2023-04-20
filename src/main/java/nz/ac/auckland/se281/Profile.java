@@ -5,6 +5,7 @@ public class Profile{
     private String age;
     private boolean profileLoaded;
     private int numberOfPolicies = 0;
+    private int totalPremium = 0;
 
     public Profile(String username, String age){
 
@@ -52,6 +53,14 @@ public class Profile{
 
     public int getNumberOfPolicies(){
         return numberOfPolicies;
+    }
+
+    public void setTotalPremium(int addition){
+        totalPremium = totalPremium + addition;
+    }
+
+    public int getTotalPremium(){
+        return this.totalPremium;
     }
     
     

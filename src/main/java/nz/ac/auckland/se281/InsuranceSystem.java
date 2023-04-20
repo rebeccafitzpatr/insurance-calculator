@@ -56,24 +56,22 @@ public class InsuranceSystem {
         }else {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
 
+
       }
+    }
       //print out all of the policies associated with the profile
       for (Policy policy : policies) {
         if (policy.getProfile() == profile ){
-          if (policy instanceof HomePolicy) {
-            HomePolicy homePolicy = (HomePolicy) policy;
-            homePolicy.printPolicy();
-          }
-          
-
+          profile.setTotalPremium(policy.getSumInsured());
         }
+        policy.printPolicy(profile.getTotalPremium());
 
       }
 
     }
   }
 
-  }
+  
 
 
   public boolean checkNameLength (String userName){
@@ -255,7 +253,7 @@ public class InsuranceSystem {
         if (profile.getProfileLoadStatus() == true) {
 
           //if it is create the policy and give success message
-          HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
+          Policy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);

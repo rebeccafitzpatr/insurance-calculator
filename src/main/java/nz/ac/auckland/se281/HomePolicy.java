@@ -3,6 +3,7 @@ package nz.ac.auckland.se281;
 public class HomePolicy extends Policy {
     private String address;
     private int basePremium;
+    private boolean rental;
 
     public HomePolicy(Profile profile, int sumInsured, String address, boolean rental) {
         //initialise variables
@@ -23,9 +24,9 @@ public class HomePolicy extends Policy {
     }
 
     @Override
-    public void printPolicy() {
+    public void printPolicy(int totalPremium) {
         
 
-        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(this.basePremium), String.valueOf(this.discountPremium));
+        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(HomeBasePremium(this.rental)), String.valueOf(discountPremium(profile, totalPremium)));
     }
 }
