@@ -2,14 +2,12 @@ package nz.ac.auckland.se281;
 
 public class HomePolicy extends Policy {
     private String address;
-    private boolean rental;
     private int basePremium;
 
     public HomePolicy(Profile profile, int sumInsured, String address, boolean rental) {
         //initialise variables
         super(sumInsured, profile);
         this.address = address;
-        this.rental = rental;
 
     }
     
@@ -22,5 +20,12 @@ public class HomePolicy extends Policy {
             basePremium = sumInsured/100;
         }
         return basePremium;
+    }
+
+    @Override
+    public void printPolicy() {
+        
+
+        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(this.basePremium), String.valueOf(this.discountPremium));
     }
 }

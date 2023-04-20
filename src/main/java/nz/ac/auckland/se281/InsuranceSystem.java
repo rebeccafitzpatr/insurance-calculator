@@ -8,6 +8,8 @@ public class InsuranceSystem {
 
   ArrayList<Profile> profiles = new ArrayList<Profile>();
 
+  ArrayList<Policy> policies = new ArrayList<Policy>();
+
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
   //ArrayList<String> profiles = new ArrayList<String>();
@@ -41,6 +43,7 @@ public class InsuranceSystem {
       boolean profileLoaded = profile.getProfileLoadStatus();
       int numberOfPolicies = profile.getNumberOfPolicies();
 
+      //change the spelling of policies depending on the number.
       if (numberOfPolicies == 1){  
         if (profileLoaded == true){
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies), "y" );
@@ -52,6 +55,18 @@ public class InsuranceSystem {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
         }else {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
+
+      }
+      //print out all of the policies associated with the profile
+      for (Policy policy : policies) {
+        if (policy.getProfile() == profile ){
+          if (policy instanceof HomePolicy) {
+            HomePolicy homePolicy = (HomePolicy) policy;
+            homePolicy.printPolicy();
+          }
+          
+
+        }
 
       }
 
@@ -243,6 +258,9 @@ public class InsuranceSystem {
           HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
+          policies.add(homePolicy);
+
+
 
           return;
 
