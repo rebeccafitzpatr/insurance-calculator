@@ -20,13 +20,13 @@ public abstract class Policy {
     public abstract void printPolicy(int totalPremium);
     
 
-    public int discountPremium(Profile userName, int totalPremium) {
+    public int discountPremium(Profile profile, int totalPremium) {
         //this method will calculate the discounted premium for the user.
 
         
-        if (userName.getNumberOfPolicies() == 2){
+        if (profile.getNumberOfPolicies() == 2){
             discountPremium = totalPremium * 9 / 10;            
-        } else if (userName.getNumberOfPolicies() >= 3){
+        } else if (profile.getNumberOfPolicies() >= 3){
             discountPremium = totalPremium * 8 / 10;
         } else{
             discountPremium = totalPremium;

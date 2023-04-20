@@ -63,16 +63,14 @@ public class InsuranceSystem {
       for (Policy policy : policies) {
         if (policy.getProfile() == profile ){
           profile.setTotalPremium(policy.getSumInsured());
+          policy.printPolicy(profile.getTotalPremium());
         }
-        policy.printPolicy(profile.getTotalPremium());
+        
 
       }
 
     }
   }
-
-  
-
 
   public boolean checkNameLength (String userName){
     // this method will check that the given username is longer than 3 characters, unique

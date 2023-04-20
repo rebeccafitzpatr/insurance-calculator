@@ -9,14 +9,15 @@ public class HomePolicy extends Policy {
         //initialise variables
         super(sumInsured, profile);
         this.address = address;
+        this.rental = rental;
 
     }
     
-    public int HomeBasePremium(boolean rental){
+    public int HomeBasePremium(boolean rental, int sumInsured){
         //if the property is a rental, the base premium is 2% of the sum insured, if not it is 1% of the base premium.
 
         if (rental == true) {
-            basePremium = 2 / 100 * sumInsured;  
+            basePremium = (2 / 100) * sumInsured;  
         } else {
             basePremium = sumInsured/100;
         }
@@ -27,6 +28,6 @@ public class HomePolicy extends Policy {
     public void printPolicy(int totalPremium) {
         
 
-        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(HomeBasePremium(this.rental)), String.valueOf(discountPremium(profile, totalPremium)));
+        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(HomeBasePremium(this.rental, this.sumInsured)), String.valueOf(discountPremium(profile, totalPremium)));
     }
 }
