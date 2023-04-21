@@ -6,6 +6,7 @@ public class Profile{
     private boolean profileLoaded;
     private int numberOfPolicies = 0;
     private int totalPremium = 0;
+    private boolean lifePolicyStatus = false;
 
     public Profile(String username, String age){
 
@@ -65,6 +66,14 @@ public class Profile{
 
     public int getTotalPremium(){
         return this.totalPremium;
+    }
+
+    public void setLifePolicyStatus(){
+        this.lifePolicyStatus = true;
+    }
+
+    public boolean getLifePolicyStatus(){
+        return this.lifePolicyStatus;
     }
     
     

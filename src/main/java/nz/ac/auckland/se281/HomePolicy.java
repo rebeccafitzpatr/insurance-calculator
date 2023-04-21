@@ -28,6 +28,6 @@ public class HomePolicy extends Policy {
     public void printPolicy(int totalPremium) {
         
 
-        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(HomeBasePremium(this.sumInsured)), String.valueOf(discountPremium(profile, totalPremium)));
+        MessageCli.PRINT_DB_HOME_POLICY.printMessage(this.address, String.valueOf(this.sumInsured), String.valueOf(HomeBasePremium(this.sumInsured)), String.valueOf(discountPremium(profile, basePremium)));
     }
 }

@@ -67,21 +67,26 @@ public class InsuranceSystem {
             HomePolicy homePolicy = (HomePolicy) policy;
             profile.setTotalPremium(homePolicy.HomeBasePremium(homePolicy.getSumInsured()));
             homePolicy.printPolicy(profile.getTotalPremium());
-          }
-
-          else if (policy instanceof CarPolicy) {
+          } else if (policy instanceof CarPolicy) {
             CarPolicy carPolicy = (CarPolicy) policy;
             profile.setTotalPremium(carPolicy.CarBasePremium(profile, carPolicy.getSumInsured()));
             carPolicy.printPolicy(profile.getTotalPremium());
 
+          } else if (policy instanceof LifePolicy) {
+            LifePolicy lifePolicy = (LifePolicy) policy;
+            profile.setTotalPremium(lifePolicy.LifeBasePremium(profile, lifePolicy.getSumInsured()));
+            lifePolicy.printPolicy(profile.getTotalPremium());
+
+
           }
         }
+
+      }
         
 
       }
 
     }
-  }
 
   public boolean checkNameLength (String userName){
     // this method will check that the given username is longer than 3 characters, unique
@@ -273,6 +278,7 @@ public class InsuranceSystem {
       
       //if not print error message
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+
     } else if (type == PolicyType.CAR) {
         for (Profile profile : profiles) {
           if (profile.getProfileLoadStatus() == true) {
@@ -286,9 +292,54 @@ public class InsuranceSystem {
             return;          
           }
 
-    }
+        }
+        // if the profile is not loaded, give an error message 
 
+        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+
+  } else if (type == PolicyType.LIFE){
+      for (Profile profile : profiles) {
+        //check that the profile is loaded
+        if (profile.getProfileLoadStatus() == true) {
+
+          //check that this user is below 100 years old.
+          if (profile.getAgeInteger() <= 100) {
+
+            //check that the user doesn't already have a life policy.
+            if (profile.getLifePolicyStatus() == false){
+              //if it is create the policy and give success message
+                  Policy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
+                  MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
+                  profile.setincreaseNumberOfPolicies();
+                  policies.add(lifePolicy);
+
+                  //also set that the client now has a life policy 
+                  profile.setLifePolicyStatus();
+
+                  return;
+
+            } else {
+              //if the user already has a life policy give a error message
+              MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(profile.getUsername());
+              return;
+            }
+
+          } else {
+            // if the user is over 100 years old, give an error message
+            MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUsername());
+            return;
+          }
+                    
+        }
+
+        // if the profile is not loaded, give an error message 
+        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+
+      }
+    
   }
+
+
   }
 
   public boolean convertToBoolean(String input) {

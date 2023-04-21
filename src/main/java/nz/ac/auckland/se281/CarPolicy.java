@@ -40,6 +40,6 @@ public class CarPolicy extends Policy {
     public void printPolicy(int totalPremium) {
         
 
-        MessageCli.PRINT_DB_CAR_POLICY.printMessage(this.model, String.valueOf(this.sumInsured), String.valueOf(CarBasePremium(profile, this.sumInsured)), String.valueOf(discountPremium(profile, totalPremium)));
+        MessageCli.PRINT_DB_CAR_POLICY.printMessage(this.model, String.valueOf(this.sumInsured), String.valueOf(CarBasePremium(profile, this.sumInsured)), String.valueOf(discountPremium(profile, basePremium)));
     }
 }
