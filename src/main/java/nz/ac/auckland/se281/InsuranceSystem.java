@@ -39,7 +39,7 @@ public class InsuranceSystem {
 
       //now print profile information message    
       String userName = profile.getUsername();
-      String age = profile.getAge();
+      String age = profile.getAgeString();
       boolean profileLoaded = profile.getProfileLoadStatus();
       int numberOfPolicies = profile.getNumberOfPolicies();
 
@@ -68,8 +68,13 @@ public class InsuranceSystem {
             profile.setTotalPremium(homePolicy.HomeBasePremium(homePolicy.getSumInsured()));
             homePolicy.printPolicy(profile.getTotalPremium());
           }
-          
-            //policy.printPolicy(profile.getTotalPremium());
+
+          else if (policy instanceof CarPolicy) {
+            CarPolicy carPolicy = (CarPolicy) policy;
+            profile.setTotalPremium(carPolicy.CarBasePremium(profile, carPolicy.getSumInsured()));
+            carPolicy.printPolicy(profile.getTotalPremium());
+
+          }
         }
         
 
@@ -262,17 +267,28 @@ public class InsuranceSystem {
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
 
-
-
-          return;
-
-          
+          return;          
         }
       }
       
       //if not print error message
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+    } else if (type == PolicyType.CAR) {
+        for (Profile profile : profiles) {
+          if (profile.getProfileLoadStatus() == true) {
+
+            //if it is create the policy and give success message
+            Policy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertToBoolean(options[3]));
+            MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
+            profile.setincreaseNumberOfPolicies();
+            policies.add(carPolicy);
+
+            return;          
+          }
+
     }
+
+  }
   }
 
   public boolean convertToBoolean(String input) {

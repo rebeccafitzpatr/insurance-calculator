@@ -20,8 +20,12 @@ public class Profile{
 
     }
 
-    public String getAge(){
+    public String getAgeString(){
         return this.age;
+    }
+
+    public int getAgeInteger(){
+        return Integer.valueOf(this.age);
     }
 
     public void setProfileLoad(){
