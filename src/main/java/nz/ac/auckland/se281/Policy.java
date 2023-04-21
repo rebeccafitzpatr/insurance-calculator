@@ -4,7 +4,7 @@ public abstract class Policy {
     protected int sumInsured;
     protected Profile profile;
     protected int discountPremium;
-    protected int totalPremium;
+    protected int basePremium;
 
     public Policy(int sumInsured, Profile profile) {
         this.sumInsured = sumInsured;
@@ -17,19 +17,19 @@ public abstract class Policy {
         return this.profile;
     }
 
-    public abstract void printPolicy(int totalPremium);
+    public abstract void printPolicy(int basePremium);
     
 
-    public int discountPremium(Profile profile, int totalPremium) {
+    public int discountPremium(Profile profile, int basePremium) {
         //this method will calculate the discounted premium for the user.
 
         
         if (profile.getNumberOfPolicies() == 2){
-            discountPremium = totalPremium * 9 / 10;            
+            discountPremium = basePremium * 9 / 10;            
         } else if (profile.getNumberOfPolicies() >= 3){
-            discountPremium = totalPremium * 8 / 10;
+            discountPremium = basePremium * 8 / 10;
         } else{
-            discountPremium = totalPremium;
+            discountPremium = basePremium;
         }
         return discountPremium;
 

@@ -46,40 +46,40 @@ public class InsuranceSystem {
       //change the spelling of policies depending on the number.
       if (numberOfPolicies == 1){  
         if (profileLoaded == true){
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies), "y" );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies), "y" );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
         }
       } else {
         if (profileLoaded == true){
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium())  );
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies" );
-
-
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()) );
+        }
       }
-    }
       //print out all of the policies associated with the profile
       for (Policy policy : policies) {
         if (policy.getProfile() == profile ){
 
           if (policy instanceof HomePolicy) {
             HomePolicy homePolicy = (HomePolicy) policy;
-            profile.setTotalPremium(homePolicy.HomeBasePremium(homePolicy.getSumInsured()));
+            //profile.setTotalPremium(homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), homePolicy.getSumInsured()));
             homePolicy.printPolicy(profile.getTotalPremium());
           } else if (policy instanceof CarPolicy) {
             CarPolicy carPolicy = (CarPolicy) policy;
-            profile.setTotalPremium(carPolicy.CarBasePremium(profile, carPolicy.getSumInsured()));
+            //profile.setTotalPremium(carPolicy.CarBasePremium(profile, carPolicy.getSumInsured()));
             carPolicy.printPolicy(profile.getTotalPremium());
 
           } else if (policy instanceof LifePolicy) {
             LifePolicy lifePolicy = (LifePolicy) policy;
-            profile.setTotalPremium(lifePolicy.LifeBasePremium(profile, lifePolicy.getSumInsured()));
+            //profile.setTotalPremium(lifePolicy.LifeBasePremium(profile, lifePolicy.getSumInsured()));
             lifePolicy.printPolicy(profile.getTotalPremium());
 
 
           }
         }
+
+
 
       }
         
@@ -267,10 +267,16 @@ public class InsuranceSystem {
         if (profile.getProfileLoadStatus() == true) {
 
           //if it is create the policy and give success message
-          Policy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
+          HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
+
+          //add to the total premium
+          profile.setTotalPremium(homePolicy.discountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0]))));
+          System.out.println(homePolicy.getRentalStatus());
+
+          System.out.println(profile.getTotalPremium());
 
           return;          
         }
@@ -284,11 +290,12 @@ public class InsuranceSystem {
           if (profile.getProfileLoadStatus() == true) {
 
             //if it is create the policy and give success message
-            Policy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertToBoolean(options[3]));
+            CarPolicy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertToBoolean(options[3]));
             MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
             profile.setincreaseNumberOfPolicies();
             policies.add(carPolicy);
-
+            profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
+            System.out.println(profile.getTotalPremium());
             return;          
           }
 
@@ -308,11 +315,12 @@ public class InsuranceSystem {
             //check that the user doesn't already have a life policy.
             if (profile.getLifePolicyStatus() == false){
               //if it is create the policy and give success message
-                  Policy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
+                  LifePolicy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
                   MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
                   profile.setincreaseNumberOfPolicies();
                   policies.add(lifePolicy);
-
+                  profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
+                  System.out.println(profile.getTotalPremium());
                   //also set that the client now has a life policy 
                   profile.setLifePolicyStatus();
 
