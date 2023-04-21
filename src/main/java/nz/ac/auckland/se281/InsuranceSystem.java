@@ -62,8 +62,14 @@ public class InsuranceSystem {
       //print out all of the policies associated with the profile
       for (Policy policy : policies) {
         if (policy.getProfile() == profile ){
-          profile.setTotalPremium(policy.getSumInsured());
-          policy.printPolicy(profile.getTotalPremium());
+
+          if (policy instanceof HomePolicy) {
+            HomePolicy homePolicy = (HomePolicy) policy;
+            profile.setTotalPremium(homePolicy.HomeBasePremium(homePolicy.getSumInsured()));
+            homePolicy.printPolicy(profile.getTotalPremium());
+          }
+          
+            //policy.printPolicy(profile.getTotalPremium());
         }
         
 
