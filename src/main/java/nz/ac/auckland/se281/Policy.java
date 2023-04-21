@@ -34,9 +34,22 @@ public abstract class Policy {
         return discountPremium;
 
     }
-
+    public void setDiscountPremium(Profile profile, int basePremium){
+        if (profile.getNumberOfPolicies() == 2){
+            discountPremium = basePremium * 9 / 10;            
+        } else if (profile.getNumberOfPolicies() >= 3){
+            discountPremium = basePremium * 8 / 10;
+        } else{
+            discountPremium = basePremium;
+        }
+    }
+    
     public int getSumInsured() {
         return this.sumInsured;
+    }
+
+    public int getDiscountPremium(){
+        return discountPremium;
     }
 
 

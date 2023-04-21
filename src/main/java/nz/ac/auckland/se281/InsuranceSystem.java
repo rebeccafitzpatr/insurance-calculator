@@ -42,6 +42,7 @@ public class InsuranceSystem {
       String age = profile.getAgeString();
       boolean profileLoaded = profile.getProfileLoadStatus();
       int numberOfPolicies = profile.getNumberOfPolicies();
+      profile.setTotalPremium(policies);
 
       //change the spelling of policies depending on the number.
       if (numberOfPolicies == 1){  
@@ -271,12 +272,12 @@ public class InsuranceSystem {
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
+          homePolicy.setDiscountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
+
+
 
           //add to the total premium
-          profile.setTotalPremium(homePolicy.discountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0]))));
-          System.out.println(homePolicy.getRentalStatus());
-
-          System.out.println(profile.getTotalPremium());
+          //profile.setTotalPremium(homePolicy.discountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0]))));
 
           return;          
         }
@@ -294,8 +295,8 @@ public class InsuranceSystem {
             MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
             profile.setincreaseNumberOfPolicies();
             policies.add(carPolicy);
-            profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
-            System.out.println(profile.getTotalPremium());
+            carPolicy.setDiscountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
+            //profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
             return;          
           }
 
@@ -319,8 +320,8 @@ public class InsuranceSystem {
                   MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
                   profile.setincreaseNumberOfPolicies();
                   policies.add(lifePolicy);
-                  profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
-                  System.out.println(profile.getTotalPremium());
+                  lifePolicy.setDiscountPremium(profile,lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0])));
+                  //profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
                   //also set that the client now has a life policy 
                   profile.setLifePolicyStatus();
 

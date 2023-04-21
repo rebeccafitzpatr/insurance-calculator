@@ -1,5 +1,7 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Profile{
     private String username;
     private String age;
@@ -60,8 +62,17 @@ public class Profile{
         return numberOfPolicies;
     }
 
-    public void setTotalPremium(int addition){
-        totalPremium = totalPremium + addition;
+    //public void setTotalPremium(int addition){
+        //totalPremium = totalPremium + addition;
+        
+    //}
+
+    public void setTotalPremium(ArrayList<Policy> policies){
+        for (Policy policy : policies) {
+            if (policy.getProfile().getUsername() == this.username){
+                this.totalPremium = this.totalPremium + policy.getDiscountPremium();
+            }
+        }
     }
 
     public int getTotalPremium(){
