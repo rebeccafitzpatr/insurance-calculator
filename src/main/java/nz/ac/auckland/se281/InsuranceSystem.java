@@ -272,7 +272,8 @@ public class InsuranceSystem {
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
-          homePolicy.setDiscountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
+          homePolicy.setBasePremium(homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
+          //homePolicy.setDiscountPremium(profile.getNumberOfPolicies(), homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
 
 
 
@@ -295,7 +296,8 @@ public class InsuranceSystem {
             MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
             profile.setincreaseNumberOfPolicies();
             policies.add(carPolicy);
-            carPolicy.setDiscountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
+            carPolicy.setBasePremium(carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
+            //carPolicy.setDiscountPremium(profile.getNumberOfPolicies(), carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
             //profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
             return;          
           }
@@ -320,8 +322,8 @@ public class InsuranceSystem {
                   MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
                   profile.setincreaseNumberOfPolicies();
                   policies.add(lifePolicy);
-                  lifePolicy.setDiscountPremium(profile,lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0])));
-                  //profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
+                  lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(),lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0])));
+                  lifePolicy.setBasePremium(lifePolicy.LifeBasePremium(profile, Integer.valueOf(options[0])));//profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
                   //also set that the client now has a life policy 
                   profile.setLifePolicyStatus();
 

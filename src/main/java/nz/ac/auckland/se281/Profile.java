@@ -70,7 +70,7 @@ public class Profile{
     public void setTotalPremium(ArrayList<Policy> policies){
         for (Policy policy : policies) {
             if (policy.getProfile().getUsername() == this.username){
-                this.totalPremium = this.totalPremium + policy.getDiscountPremium();
+                this.totalPremium = this.totalPremium + policy.setDiscountPremium(this.numberOfPolicies, policy.getBasePremium());
             }
         }
     }
