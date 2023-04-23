@@ -35,6 +35,8 @@ public abstract class Policy {
 
     }
     public int setDiscountPremium(int numberOfPolicies, int basePremium){
+        //if the client has exactly 2 policies, their discount will be 10% of basepremium
+        //if the client has 3 or more, their discount is 20%
         if (numberOfPolicies == 2){
             discountPremium = basePremium * 9 / 10;            
         } else if (numberOfPolicies >= 3){

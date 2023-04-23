@@ -5,12 +5,11 @@ public class LifePolicy extends Policy {
 
     public LifePolicy( Profile profile, int sumInsured) {
         super(sumInsured, profile);
-        //TODO Auto-generated constructor stub
     }
 
-    public int LifeBasePremium(Profile profile, int sumInsured) {
+    public int lifeBasePremium(Profile profile, int sumInsured) {
         //base premium = (1 + age/100)% of suminsured
-        basePremium = (sumInsured + sumInsured * profile.getAgeInteger() /100)/100; 
+        basePremium = (sumInsured + sumInsured * profile.getAgeInteger() / 100) / 100; 
         return basePremium;
     }
     
@@ -19,6 +18,6 @@ public class LifePolicy extends Policy {
     public void printPolicy(int totalPremium) {
         
 
-        MessageCli.PRINT_DB_LIFE_POLICY.printMessage(String.valueOf(sumInsured), String.valueOf(LifeBasePremium(profile, this.sumInsured)), String.valueOf(discountPremium(profile, basePremium)));
+        MessageCli.PRINT_DB_LIFE_POLICY.printMessage(String.valueOf(sumInsured), String.valueOf(lifeBasePremium(profile, this.sumInsured)), String.valueOf(discountPremium(profile, basePremium)));
     }
 }

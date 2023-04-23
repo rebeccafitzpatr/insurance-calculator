@@ -19,23 +19,23 @@ public class InsuranceSystem {
      
     //find the number of profiles in the database and convert this to a string
     int dbLength = profiles.size();
-    String dbLength_string = Integer.toString(dbLength);
+    String dbLengthString = Integer.toString(dbLength);
 
     if (dbLength == 0) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
 
-    } else if(dbLength == 1) {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, ":", " ");
+    } else if (dbLength == 1) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLengthString, ":", " ");
 
     } else if (dbLength > 1) {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLength_string, "s", ":");
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(dbLengthString, "s", ":");
     }
 
     for (Profile profile : profiles) {
 
       //find the index of the particular profile
       int index = profiles.indexOf(profile) + 1;
-      String index_String = Integer.toString(index);
+      String indexString = Integer.toString(index);
 
       //now print profile information message    
       String userName = profile.getUsername();
@@ -46,21 +46,21 @@ public class InsuranceSystem {
 
       //change the spelling of policies depending on the number.
       if (numberOfPolicies == 1){  
-        if (profileLoaded == true){
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
+        if (profileLoaded == true) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
         }
       } else {
-        if (profileLoaded == true){
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium())  );
+        if (profileLoaded == true) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium())  );
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", index_String, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()) );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()) );
         }
       }
       //print out all of the policies associated with the profile
       for (Policy policy : policies) {
-        if (policy.getProfile() == profile ){
+        if (policy.getProfile() == profile ) {
 
           if (policy instanceof HomePolicy) {
             HomePolicy homePolicy = (HomePolicy) policy;
@@ -89,23 +89,22 @@ public class InsuranceSystem {
 
     }
 
-  public boolean checkNameLength (String userName){
+  public boolean checkNameLength (String userName) {
     // this method will check that the given username is longer than 3 characters, unique
 
-    //first check that the username is not shorter than 3 characters
+    //check that the username is not shorter than 3 characters
     if (userName.length() < 3) {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
       return false;
     }
 
-    // then return true
     return true;   
   }
 
-  public boolean checkNameUnique (String userName){
+  public boolean checkNameUnique (String userName) {
 
     //next check that the username is unique
-    if (profiles.size() > 0){
+    if (profiles.size() > 0) {
       for (Profile profile : profiles) {
         if (profile.getUsername().equals(userName)) {
           MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
@@ -124,7 +123,7 @@ public class InsuranceSystem {
 
     int ageInteger = Integer.valueOf(age);
 
-    if (ageInteger < 0){
+    if (ageInteger < 0) {
       MessageCli.INVALID_AGE.printMessage(age, userName);
       return false;
 
@@ -133,7 +132,7 @@ public class InsuranceSystem {
     return true;
   }
 
-  public String tidyTitlecase (String userName){
+  public String tidyTitlecase (String userName) {
     // this method will convert the input name to titlecase and return this
     String tidyUserName = userName.toLowerCase();
     char firstLetter = tidyUserName.charAt(0);
@@ -183,36 +182,35 @@ public class InsuranceSystem {
 
         // first unload any currently loaded profiles
 
-        for (Profile profile : profiles){
-          profile.setProfileUnload();
+      for (Profile profile : profiles){
+        profile.setProfileUnload();
+      }
+        //if (checkNameUnique(userName) == false ){              
+
+        //then find the profile and load it, then return the success message
+        for (Profile profile : profiles){     
+          
+        //check that a profile with that username is in the database       
+
+          if (profile.getUsername().equals(userName)){
+            profile.setProfileLoad();
+            MessageCli.PROFILE_LOADED.printMessage(userName);
+            return;
+          }
+
         }
-          //if (checkNameUnique(userName) == false ){              
-
-          //then find the profile and load it, then return the success message
-            for (Profile profile : profiles){     
-              
-            //check that a profile with that username is in the database       
-
-              if (profile.getUsername().equals(userName)){
-                profile.setProfileLoad();
-                MessageCli.PROFILE_LOADED.printMessage(userName);
-                return;
-              }
-
-            }
-        
+    
 
         //otherwise print, profile not loaded.
-          MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
 
-        return;
+      return;
 
-      
-    }
+    
+  }
   
 
   public void unloadProfile() {
-    // TODO: Complete this method.
 
     for (Profile profile : profiles) {
       if (profile.getProfileLoadStatus() == true){
@@ -227,39 +225,36 @@ public class InsuranceSystem {
   }
 
   public void deleteProfile(String userName) {
-    // TODO: Complete this method.
 
     //convert the username to title case
     userName = tidyTitlecase(userName);
 
     // check that the profile to delete is in the database
-    //if (checkNameUnique(userName) == false) {
-      for (Profile profile : profiles) {
-        if (profile.getUsername().equals(userName)) {
+    for (Profile profile : profiles) {
+      if (profile.getUsername().equals(userName)) {
 
-          int deletingIndex = profiles.indexOf(profile);
-          //check that the profile is not currently loaded, if it is currently loaded, give an error message
-          if (profile.getProfileLoadStatus() == true) {
-            MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
-            return;
+        int deletingIndex = profiles.indexOf(profile);
+        //check that the profile is not currently loaded, if it is currently loaded, give an error message
+        if (profile.getProfileLoadStatus() == true) {
+          MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
+          return;
 
-          } else {
-            profiles.remove(deletingIndex);
-            MessageCli.PROFILE_DELETED.printMessage(userName);
-            return;
-          }
+        } else {
+          profiles.remove(deletingIndex);
+          MessageCli.PROFILE_DELETED.printMessage(userName);
+          return;
         }
       }
+    }
+
     // otherwise there is no profile with the username, so give a error message
-      MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
-    
+    MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
 
 
 
   }
 
   public void createPolicy(PolicyType type, String[] options) {
-    // TODO: Complete this method.
 
     //home policy
     if (type == PolicyType.HOME) {
@@ -268,18 +263,12 @@ public class InsuranceSystem {
         if (profile.getProfileLoadStatus() == true) {
 
           //if it is create the policy and give success message
-          HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], convertToBoolean(options[2]));
+          HomePolicy homePolicy = new HomePolicy(profile, Integer.valueOf(options[0]), options[1], Boolean(options[2]));
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
-          homePolicy.setBasePremium(homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
-          //homePolicy.setDiscountPremium(profile.getNumberOfPolicies(), homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
-
-
-
-          //add to the total premium
-          //profile.setTotalPremium(homePolicy.discountPremium(profile, homePolicy.HomeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0]))));
-
+          homePolicy.setBasePremium(homePolicy.homeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
+          
           return;          
         }
       }
@@ -292,11 +281,11 @@ public class InsuranceSystem {
           if (profile.getProfileLoadStatus() == true) {
 
             //if it is create the policy and give success message
-            CarPolicy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertToBoolean(options[3]));
+            CarPolicy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  Boolean(options[3]));
             MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
             profile.setincreaseNumberOfPolicies();
             policies.add(carPolicy);
-            carPolicy.setBasePremium(carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
+            carPolicy.setBasePremium(carPolicy.carBasePremium(profile, Integer.valueOf(options[0])));
             //carPolicy.setDiscountPremium(profile.getNumberOfPolicies(), carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
             //profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
             return;          
@@ -316,14 +305,14 @@ public class InsuranceSystem {
           if (profile.getAgeInteger() <= 100) {
 
             //check that the user doesn't already have a life policy.
-            if (profile.getLifePolicyStatus() == false){
+            if (profile.getLifePolicyStatus() == false) {
               //if it is create the policy and give success message
                   LifePolicy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
                   MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
                   profile.setincreaseNumberOfPolicies();
                   policies.add(lifePolicy);
-                  lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(),lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0])));
-                  lifePolicy.setBasePremium(lifePolicy.LifeBasePremium(profile, Integer.valueOf(options[0])));//profile.setTotalPremium(lifePolicy.discountPremium(profile, lifePolicy.LifeBasePremium(profile,Integer.valueOf(options[0]))));
+                  lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(),lifePolicy.lifeBasePremium(profile,Integer.valueOf(options[0])));
+                  lifePolicy.setBasePremium(lifePolicy.lifeBasePremium(profile, Integer.valueOf(options[0])));
                   //also set that the client now has a life policy 
                   profile.setLifePolicyStatus();
 
@@ -353,7 +342,7 @@ public class InsuranceSystem {
 
   }
 
-  public boolean convertToBoolean(String input) {
+  public boolean Boolean(String input) {
     //this method will convert the users string input into a boolean true or false
     if (input.equals("yes")) {
       return true;
