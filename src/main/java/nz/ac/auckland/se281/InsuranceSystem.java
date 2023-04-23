@@ -12,7 +12,6 @@ public class InsuranceSystem {
 
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
-  //ArrayList<String> profiles = new ArrayList<String>();
   }
 
   public void printDatabase() {
@@ -162,8 +161,8 @@ public class InsuranceSystem {
     //age should be a positive integer
 
     //if username meets these requirements, then create the new profile and add to the database.
-    if ((checkNameLength(name) == true) && 
-        (checkAge(age, name) && (checkNameUnique(name)) == true)) {
+    if ((checkNameLength(name) == true) 
+        && (checkAge(age, name) && (checkNameUnique(name)) == true)) {
       Profile username = new Profile(name, age);
 
       // add it to the list of profiles and give a success message
@@ -261,13 +260,17 @@ public class InsuranceSystem {
         if (profile.getProfileLoadStatus() == true) {
 
           //if it is create the policy and give success message
-          HomePolicy homePolicy = new HomePolicy
-              (profile, Integer.valueOf(options[0]), options[1], convertBool(options[2]));
+          HomePolicy homePolicy = new HomePolicy(profile,
+              Integer.valueOf(options[0]), 
+                  options[1], 
+                      convertBool(options[2]));
+
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(homePolicy);
-          homePolicy.setBasePremium
-              (homePolicy.homeBasePremium(homePolicy.getRentalStatus(), Integer.valueOf(options[0])));
+
+          homePolicy.setBasePremium(homePolicy.homeBasePremium(homePolicy.getRentalStatus(),
+              Integer.valueOf(options[0])));
           
           return;          
         }
@@ -281,8 +284,10 @@ public class InsuranceSystem {
         if (profile.getProfileLoadStatus() == true) {
 
           //if it is create the policy and give success message
-          CarPolicy carPolicy = new CarPolicy
-              (profile, Integer.valueOf(options[0]), options[1], options[2], convertBool(options[3]));
+          CarPolicy carPolicy = new CarPolicy(profile,
+              Integer.valueOf(options[0]), options[1],
+                  options[2], convertBool(options[3]));
+
           MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
           profile.setincreaseNumberOfPolicies();
           policies.add(carPolicy);
@@ -310,12 +315,12 @@ public class InsuranceSystem {
               MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
               profile.setincreaseNumberOfPolicies();
               policies.add(lifePolicy);
-              lifePolicy.setDiscountPremium(profile.getNumberOfPolicies()
-                  , lifePolicy.lifeBasePremium(profile
-                  , Integer.valueOf(options[0])));
+              
+              lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(), 
+                  lifePolicy.lifeBasePremium(profile, Integer.valueOf(options[0])));
 
-              lifePolicy.setBasePremium(lifePolicy.lifeBasePremium(profile
-                  , Integer.valueOf(options[0])));
+              lifePolicy.setBasePremium(lifePolicy.lifeBasePremium(
+                  profile, Integer.valueOf(options[0])));
               
               //also set that the client now has a life policy 
               profile.setLifePolicyStatus();
@@ -334,11 +339,11 @@ public class InsuranceSystem {
             return;
           }
                   
-        } 
+        } else {
 
         // if the profile is not loaded, give an error message 
         MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
-
+        }
       }
     
     }  

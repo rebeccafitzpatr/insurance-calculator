@@ -38,8 +38,8 @@ public class CarPolicy extends Policy {
   
   @Override
   public void printPolicy(int totalPremium) {
-    MessageCli.PRINT_DB_CAR_POLICY.printMessage(this.model, String.valueOf(this.sumInsured)
-        , String.valueOf(carBasePremium(profile, this.sumInsured))
-        , String.valueOf(discountPremium(profile, basePremium)));
+    MessageCli.PRINT_DB_CAR_POLICY.printMessage(this.model, String.valueOf(this.sumInsured), 
+        String.valueOf(carBasePremium(profile, this.sumInsured)), 
+        String.valueOf(discountPremium(profile, basePremium)));
   }
 }

@@ -67,8 +67,8 @@ public class Profile {
       // look at every policy, and if each profile, calculate the total premium
       //calculate this by adding all discount premiums that the user has
       if (policy.getProfile().getUsername() == this.username) {
-        this.totalPremium = this.totalPremium + policy.setDiscountPremium
-            (this.numberOfPolicies, policy.getBasePremium());
+        this.totalPremium = this.totalPremium 
+            + policy.setDiscountPremium(this.numberOfPolicies, policy.getBasePremium());
       }
     }
   }

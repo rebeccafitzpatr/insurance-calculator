@@ -31,9 +31,9 @@ public class HomePolicy extends Policy {
 
   @Override
   public void printPolicy(int totalPremium) {
-    MessageCli.PRINT_DB_HOME_POLICY.printMessage
-        (this.address, String.valueOf(this.sumInsured)
-        , String.valueOf(homeBasePremium(rental, this.sumInsured))
-        , String.valueOf(discountPremium(profile, basePremium)));
+    MessageCli.PRINT_DB_HOME_POLICY.printMessage(
+        this.address, String.valueOf(this.sumInsured),
+            String.valueOf(homeBasePremium(rental, this.sumInsured)),
+            String.valueOf(discountPremium(profile, basePremium)));
   }
 }
