@@ -315,7 +315,7 @@ public class InsuranceSystem {
               MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
               profile.setincreaseNumberOfPolicies();
               policies.add(lifePolicy);
-              
+
               lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(), 
                   lifePolicy.lifeBasePremium(profile, Integer.valueOf(options[0])));
 
@@ -339,13 +339,11 @@ public class InsuranceSystem {
             return;
           }
                   
-        } else {
-
-        // if the profile is not loaded, give an error message 
-        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
-        }
+        } 
+        
       }
-    
+        //if the profile is not loaded, give an error message
+        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     }  
 
   }
