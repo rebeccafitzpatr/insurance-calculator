@@ -3,7 +3,7 @@ package nz.ac.auckland.se281;
 import java.util.ArrayList;
 
 public class Profile {
-        private String username;
+    private String username;
     private String age;
     private boolean profileLoaded;
     private int numberOfPolicies = 0;
@@ -62,13 +62,10 @@ public class Profile {
         return numberOfPolicies;
     }
 
-    //public void setTotalPremium(int addition){
-        //totalPremium = totalPremium + addition;
-        
-    //}
-
     public void setTotalPremium(ArrayList<Policy> policies) {
         for (Policy policy : policies) {
+            // look at every policy, and if each profile, calculate the total premium
+            //calculate this by adding all discount premiums that the user has
             if (policy.getProfile().getUsername() == this.username) {
                 this.totalPremium = this.totalPremium + policy.setDiscountPremium(this.numberOfPolicies, policy.getBasePremium());
             }

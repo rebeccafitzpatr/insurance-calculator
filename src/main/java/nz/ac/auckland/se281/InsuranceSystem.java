@@ -47,15 +47,15 @@ public class InsuranceSystem {
       //change the spelling of policies depending on the number.
       if (numberOfPolicies == 1) {  
         if (profileLoaded == true) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()));
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()) );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies), "y", String.valueOf(profile.getTotalPremium()));
         }
       } else {
         if (profileLoaded == true) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium())  );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("*** ", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()));
         }else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()) );
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage("", indexString, userName, age, String.valueOf(numberOfPolicies) ,"ies", String.valueOf(profile.getTotalPremium()));
         }
       }
       //print out all of the policies associated with the profile
@@ -118,7 +118,7 @@ public class InsuranceSystem {
   }
 
 
-  public boolean checkAge (String age, String userName){
+  public boolean checkAge(String age, String userName){
     //this method will check that the age is an positve integer.if it is valid, it will return true.
 
     int ageInteger = Integer.valueOf(age);
@@ -132,7 +132,7 @@ public class InsuranceSystem {
     return true;
   }
 
-  public String tidyTitlecase (String userName) {
+  public String tidyTitlecase(String userName) {
     // this method will convert the input name to titlecase and return this
     String tidyUserName = userName.toLowerCase();
     char firstLetter = tidyUserName.charAt(0);
@@ -166,7 +166,7 @@ public class InsuranceSystem {
     //age should be a positive integer
 
     //if username meets these requirements, then create the new profile and add to the database.
-    if ((checkNameLength(userName) == true) && (checkAge(age, userName) && (checkNameUnique(userName)) == true)){
+    if ((checkNameLength(userName) == true) && (checkAge(age, userName) && (checkNameUnique(userName)) == true)) {
       Profile username = new Profile(userName, age);
 
       profiles.add(username);
