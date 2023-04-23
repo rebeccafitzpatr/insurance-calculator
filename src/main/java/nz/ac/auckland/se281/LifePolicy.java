@@ -3,12 +3,13 @@ package nz.ac.auckland.se281;
 public class LifePolicy extends Policy {
     private int basePremium;
 
-    public LifePolicy( Profile profile, int sumInsured) {
+    public LifePolicy(Profile profile, int sumInsured) {
         super(sumInsured, profile);
     }
 
     public int lifeBasePremium(Profile profile, int sumInsured) {
         //base premium = (1 + age/100)% of suminsured
+
         basePremium = (sumInsured + sumInsured * profile.getAgeInteger() / 100) / 100; 
         return basePremium;
     }

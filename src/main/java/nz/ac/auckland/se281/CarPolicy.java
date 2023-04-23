@@ -14,7 +14,6 @@ public class CarPolicy extends Policy {
             this.licencePlate = licencePlate;
             this.mechanicalBreakdown = mechanicalBreakdown;
 
-            //TODO Auto-generated constructor stub
         }
 
         public int carBasePremium(Profile profile, int sumInsured) {
@@ -25,7 +24,7 @@ public class CarPolicy extends Policy {
                 basePremium = (15 * sumInsured / 100);  
             } else {
                 // if clients age is greater than 25, base premium is 10% of sum insures
-                basePremium = (10 * sumInsured/100);
+                basePremium = (10 * sumInsured / 100);
             }
 
             if (this.mechanicalBreakdown == true) {
