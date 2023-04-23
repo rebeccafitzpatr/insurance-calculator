@@ -278,65 +278,65 @@ public class InsuranceSystem {
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
 
     } else if (type == PolicyType.CAR) {
-        for (Profile profile : profiles) {
-          if (profile.getProfileLoadStatus() == true) {
+      for (Profile profile : profiles) {
+        if (profile.getProfileLoadStatus() == true) {
 
-            //if it is create the policy and give success message
-            CarPolicy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertBool(options[3]));
-            MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
-            profile.setincreaseNumberOfPolicies();
-            policies.add(carPolicy);
-            carPolicy.setBasePremium(carPolicy.carBasePremium(profile, Integer.valueOf(options[0])));
-            //carPolicy.setDiscountPremium(profile.getNumberOfPolicies(), carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
-            //profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
-            return;          
-          }
-
+          //if it is create the policy and give success message
+          CarPolicy carPolicy = new CarPolicy(profile, Integer.valueOf(options[0]), options[1], options[2],  convertBool(options[3]));
+          MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUsername());
+          profile.setincreaseNumberOfPolicies();
+          policies.add(carPolicy);
+          carPolicy.setBasePremium(carPolicy.carBasePremium(profile, Integer.valueOf(options[0])));
+          //carPolicy.setDiscountPremium(profile.getNumberOfPolicies(), carPolicy.CarBasePremium(profile, Integer.valueOf(options[0])));
+          //profile.setTotalPremium(carPolicy.discountPremium(profile, carPolicy.CarBasePremium(profile, Integer.valueOf(options[0]))));
+          return;          
         }
-        // if the profile is not loaded, give an error message 
 
-        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+      }
+      // if the profile is not loaded, give an error message 
+
+      MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
 
     } else if (type == PolicyType.LIFE) {
-        for (Profile profile : profiles) {
-          //check that the profile is loaded
-          if (profile.getProfileLoadStatus() == true) {
+      for (Profile profile : profiles) {
+        //check that the profile is loaded
+        if (profile.getProfileLoadStatus() == true) {
 
-            //check that this user is below 100 years old.
-            if (profile.getAgeInteger() <= 100) {
+          //check that this user is below 100 years old.
+          if (profile.getAgeInteger() <= 100) {
 
-              //check that the user doesn't already have a life policy.
-              if (profile.getLifePolicyStatus() == false) {
-                //if it is create the policy and give success message
-                LifePolicy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
-                MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
-                profile.setincreaseNumberOfPolicies();
-                policies.add(lifePolicy);
-                lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(), lifePolicy.lifeBasePremium(profile,Integer.valueOf(options[0])));
-                lifePolicy.setBasePremium(lifePolicy.lifeBasePremium(profile, Integer.valueOf(options[0])));
-                //also set that the client now has a life policy 
-                profile.setLifePolicyStatus();
+            //check that the user doesn't already have a life policy.
+            if (profile.getLifePolicyStatus() == false) {
+              //if it is create the policy and give success message
+              LifePolicy lifePolicy = new LifePolicy(profile, Integer.valueOf(options[0]));
+              MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUsername());
+              profile.setincreaseNumberOfPolicies();
+              policies.add(lifePolicy);
+              lifePolicy.setDiscountPremium(profile.getNumberOfPolicies(), lifePolicy.lifeBasePremium(profile,Integer.valueOf(options[0])));
+              lifePolicy.setBasePremium(lifePolicy.lifeBasePremium(profile, Integer.valueOf(options[0])));
+              //also set that the client now has a life policy 
+              profile.setLifePolicyStatus();
 
-                return;
-
-              } else {
-                //if the user already has a life policy give a error message
-                MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(profile.getUsername());
-                return;
-              }
+              return;
 
             } else {
-              // if the user is over 100 years old, give an error message
-              MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUsername());
+              //if the user already has a life policy give a error message
+              MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(profile.getUsername());
               return;
             }
-                    
-          } 
 
-          // if the profile is not loaded, give an error message 
-          MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+          } else {
+            // if the user is over 100 years old, give an error message
+            MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUsername());
+            return;
+          }
+                  
+        } 
 
-        }
+        // if the profile is not loaded, give an error message 
+        MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+
+      }
     
     }  
 
