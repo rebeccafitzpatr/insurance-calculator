@@ -16,6 +16,8 @@ public class LifePolicy extends Policy {
   
   @Override
   public void printPolicy(int totalPremium) {
-    MessageCli.PRINT_DB_LIFE_POLICY.printMessage(String.valueOf(sumInsured), String.valueOf(lifeBasePremium(profile, this.sumInsured)), String.valueOf(discountPremium(profile, basePremium)));
+    MessageCli.PRINT_DB_LIFE_POLICY.printMessage(String.valueOf(sumInsured)
+        , String.valueOf(lifeBasePremium(profile, this.sumInsured))
+        , String.valueOf(discountPremium(profile, basePremium)));
   }
 }
