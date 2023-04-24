@@ -6,9 +6,9 @@ public class CarPolicy extends Policy {
   private String licencePlate;
   private Boolean mechanicalBreakdown;
 
-  public CarPolicy(Profile profile
-      , int sumInsured, String model
-      , String licencePlate, Boolean mechanicalBreakdown) {
+  public CarPolicy(Profile profile, 
+      int sumInsured, String model, 
+      String licencePlate, Boolean mechanicalBreakdown) {
 
     super(sumInsured, profile);
     this.model = model;

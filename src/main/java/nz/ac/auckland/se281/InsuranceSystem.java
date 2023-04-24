@@ -176,16 +176,18 @@ public class InsuranceSystem {
   public void loadProfile(String userName) {
     userName = tidyTitlecase(userName);
 
-    // first unload any currently loaded profiles
-    for (Profile profile : profiles) {
-      profile.setProfileUnload();
-    }
+    
 
-    //then find the profile and load it, then return the success message
+    //iterate through all profiles, find the profile and load it, then return the success message
     for (Profile profile : profiles) {     
       
       //check that a profile with that username is in the database       
       if (profile.getUsername().equals(userName)) {
+
+        // first unload any currently loaded profiles
+        for (Profile pro : profiles) {
+              pro.setProfileUnload();
+        }
 
         //if it is, then load this profile and give a success message
         profile.setProfileLoad();

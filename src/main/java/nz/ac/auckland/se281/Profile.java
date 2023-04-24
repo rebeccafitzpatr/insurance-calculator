@@ -63,6 +63,8 @@ public class Profile {
   }
 
   public void setTotalPremium(ArrayList<Policy> policies) {
+    this.totalPremium = 0;
+
     for (Policy policy : policies) {
       // look at every policy, and if each profile, calculate the total premium
       //calculate this by adding all discount premiums that the user has
